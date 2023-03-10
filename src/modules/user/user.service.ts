@@ -39,6 +39,7 @@ export class UserService {
     newUser.email = userData.email;
     newUser.photo = userData.photo;
     newUser.password = userData.password;
+    newUser.role = userData.role ? userData.role : 'user';
 
     return await newUser.save();
   }
@@ -86,5 +87,9 @@ export class UserService {
 
   async findUserByEmail(email: string): Promise<User> {
     return await this.userRepository.findOne({ where: { email } });
+  }
+
+  async deleteUser(user: Partial<User>) {
+    return await this.userRepository.delete(user.id);
   }
 }

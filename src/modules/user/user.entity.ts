@@ -64,7 +64,7 @@ export class User extends BaseEntity {
     enum: UserRole,
     default: 'user',
   })
-  role: UserRole;
+  role: UserRole | string;
 
   @ApiProperty({
     description: 'Hashed user password',
