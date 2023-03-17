@@ -57,36 +57,12 @@ export class UserService {
 
     userUpdateDto.name ? (user.name = userUpdateDto.name) : user.name;
     userUpdateDto.photo ? (user.photo = userUpdateDto.photo) : user.photo;
-
+    userUpdateDto.password ? (user.password = userUpdateDto.password) : user;
     return await user.save();
-  }
-
-  async findUserByLogin({ email, password }: userLoginDto) {
-    const user = await this.userRepository
-      .createQueryBuilder()
-      .where('user.email = :email', { email })
-      .select('*')
-      .addSelect('user.password', 'currentPassword')
-      .getOne();
-
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
-
-    const areEqual = await bcrypt.compare(user.password, password);
-    if (!areEqual) {
-      throw new UnauthorizedException('Invalid email or password');
-    }
-
-    return user;
   }
 
   async findUserById(id: string): Promise<User> {
     return await this.userRepository.findOneByOrFail({ id });
-  }
-
-  async findUserByEmail(email: string): Promise<User> {
-    return await this.userRepository.findOne({ where: { email } });
   }
 
   async deleteUser(user: Partial<User>) {

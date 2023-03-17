@@ -15,6 +15,13 @@ import { UserModule } from './modules/user/user.module';
 import { dataSourceOptions } from '../db/data-source';
 import { AuthModule } from './modules/auth/auth.module';
 import { ApiTokenCheckMiddleware } from './common/middleware/api-token-check.middleware';
+import { MailModule } from './modules/mail/mail.module';
+import { BullModule } from '@nestjs/bull';
+import { bullRootConfigOptions } from './config/queue.config';
+import { PasswordresetModule } from './modules/passwordreset/passwordreset.module';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { throttleConfig } from './config/throttle.config';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -24,9 +31,19 @@ import { ApiTokenCheckMiddleware } from './common/middleware/api-token-check.mid
     TourModule,
     UserModule,
     AuthModule,
+    MailModule,
+    BullModule.forRoot(bullRootConfigOptions),
+    PasswordresetModule,
+    ThrottlerModule.forRoot(throttleConfig),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): any {

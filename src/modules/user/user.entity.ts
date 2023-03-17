@@ -1,6 +1,6 @@
 import {
   BaseEntity,
-  BeforeInsert,
+  BeforeInsert, BeforeUpdate,
   Column,
   CreateDateColumn,
   Entity,
@@ -8,7 +8,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
   Timestamp,
-  UpdateDateColumn,
+  UpdateDateColumn
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { Review } from '../tour/entities/review.entity';
@@ -115,6 +115,7 @@ export class User extends BaseEntity {
   updated_at: Timestamp;
 
   @BeforeInsert()
+  @BeforeUpdate()
   async setPassword(password: string) {
     const salt = await bcrypt.genSalt();
     this.password = await bcrypt.hash(password || this.password, salt);

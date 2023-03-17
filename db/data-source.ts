@@ -1,11 +1,12 @@
 import * as dotenv from 'dotenv';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import * as fs from 'fs';
-import { User } from "../src/modules/user/user.entity";
-import { Review } from "../src/modules/tour/entities/review.entity";
-import { Booking } from "../src/modules/tour/entities/booking.entity";
-import { Tour } from "../src/modules/tour/entities/tour.entity";
-import { Location } from "../src/modules/tour/entities/location.entity";
+import { User } from '../src/modules/user/user.entity';
+import { Review } from '../src/modules/tour/entities/review.entity';
+import { Booking } from '../src/modules/tour/entities/booking.entity';
+import { Tour } from '../src/modules/tour/entities/tour.entity';
+import { Location } from '../src/modules/tour/entities/location.entity';
+import { PasswordReset } from '../src/modules/passwordreset/passwordreset.entity';
 
 const data: any = dotenv.parse(fs.readFileSync('.env'));
 
@@ -16,7 +17,7 @@ export const dataSourceOptions: DataSourceOptions = {
   password: data.DB_PASSWORD,
   database: data.DB_NAME,
   // entities: ['dist/**/*.entity.js'],
-  entities: [User, Review, Booking, Tour, Location],
+  entities: [User, Review, Booking, Tour, Location, PasswordReset],
   migrations: ['dist/db/migrations/*.js'],
   logging: true,
 };

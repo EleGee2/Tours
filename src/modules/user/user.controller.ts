@@ -13,8 +13,8 @@ import { UserRegisterDto } from './dto/user-register.req.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { User, UserRole } from './user.entity';
 import { userUpdateDto } from './dto/user-update.req.dto';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { RolesGuard } from '../auth/role.guards';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../auth/guards/role.guards';
 import { Roles } from '../../common/decorator/roles.decorator';
 
 @ApiTags('User')
