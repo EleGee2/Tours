@@ -11,8 +11,19 @@ const VALIDATION_PIPE = new ValidationPipe({
   errorHttpStatusCode: HttpStatus.PRECONDITION_FAILED,
 });
 
+const generateTransactionReference = (x = 9, alphanumeric = true) => {
+  let text = '';
+  const possible = alphanumeric
+    ? 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    : '0123456789';
+  for (let i = 0; i < (x || 15); i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  return ''.concat(text);
+};
+
 export const UTIL = {
   PASSWORD_RULE,
   PASSWORD_RULE_MESSAGE,
   VALIDATION_PIPE,
+  generateTransactionReference,
 };

@@ -1,6 +1,7 @@
 import {
   BaseEntity,
-  BeforeInsert, BeforeUpdate,
+  BeforeInsert,
+  BeforeUpdate,
   Column,
   CreateDateColumn,
   Entity,
@@ -8,7 +9,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
   Timestamp,
-  UpdateDateColumn
+  UpdateDateColumn,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { Review } from '../tour/entities/review.entity';
@@ -100,7 +101,7 @@ export class User extends BaseEntity {
   @OneToMany(() => Review, (review) => review.user)
   reviews: Review[];
 
-  @OneToMany(() => Booking, (booking) => booking.tour)
+  @OneToMany(() => Booking, (booking) => booking.user)
   bookings: Booking[];
 
   @ManyToMany(() => Tour, (tour) => tour.guides)

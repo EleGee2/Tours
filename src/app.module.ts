@@ -22,6 +22,7 @@ import { PasswordresetModule } from './modules/passwordreset/passwordreset.modul
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { throttleConfig } from './config/throttle.config';
 import { APP_GUARD } from '@nestjs/core';
+import { PaymentModule } from './modules/payment/payment.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { APP_GUARD } from '@nestjs/core';
     BullModule.forRoot(bullRootConfigOptions),
     PasswordresetModule,
     ThrottlerModule.forRoot(throttleConfig),
+    PaymentModule,
   ],
   controllers: [AppController],
   providers: [
