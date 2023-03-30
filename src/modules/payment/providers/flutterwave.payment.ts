@@ -13,7 +13,7 @@ type InitiatePaymentResponse = {
 };
 export const initiateFlutterwavePayment = async (paymentData) => {
   try {
-    const { data, status } = await axios.post<InitiatePaymentResponse>(
+    const { data } = await axios.post<InitiatePaymentResponse>(
       `https://api.flutterwave.com/v3/payments`,
       { ...paymentData },
       { headers: { Authorization: `Bearer ${envData.FLW_SECRET_KEY}` } },
